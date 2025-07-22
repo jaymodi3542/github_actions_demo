@@ -1,14 +1,25 @@
-name: My First GitHub Action
+name: Node.js CI
 
-# When should this run?
 on:
   push:
     branches:
       - main
 
 jobs:
-  say-hello:
+  build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Print greeting
-        run: echo "👋 Hello from GitHub Actions!"
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Install dependencies
+      run: npm install
+
+    - name: Run tests
+      run: npm test
